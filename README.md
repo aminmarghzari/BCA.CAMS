@@ -1,37 +1,67 @@
-# BCA - Car Auction Management System
+# BCA Car Auction Management System
 
-<a href=''> </a>
+## Overview
+BCA Car Auction Management System (CAMS) is designed to manage car auctions, including various vehicle types such as Sedans, SUVs, Hatchbacks, and Trucks. The system allows users to add vehicles, search for vehicles, and manage auctions including starting, placing bids, and closing auctions.
 
-## Documentation
+## Project Structure
 
-Please refer to the project documentation [HERE](/docs)
+### Models
+- **Vehicle**: Represents a generic vehicle with common attributes like manufacturer, model, year, and starting bid.
+- **CarWithDoors**: Inherits from Vehicle and includes the number of doors.
+- **Hatchback**: Inherits from CarWithDoors.
+- **Sedan**: Inherits from CarWithDoors.
+- **SUV**: Inherits from CarWithDoors.
+- **Truck**: Inherits from Vehicle and includes the load capacity.
+- **Auction**: Manages the auction process for a vehicle, including tracking the current highest bid and bidder.
 
-## Contributing
 
-If you want to contribute to this project, please check the [Contributing guidelines](CONTRIBUTING.md).
+### Services
+- **AuctionService**: Provides services for managing auctions, including adding vehicles, searching for vehicles, starting auctions, placing bids, and closing auctions.
 
-## Installation
+### Validation and Validators
 
-The necessary steps to install the project, for using it or for contributing to it.
+- **VehicleValidator**: Validates vehicle data before adding to the auction inventory.
+- **AuctionValidator**: Validates auction data before starting an auction.
 
-### Requirements
+### Exceptions
+- **BaseException**: Base class for custom exceptions.
+- **VehicleAlreadyExistsException**: Raised when adding a vehicle that already exists in the inventory.
+- **AuctionException**: Raised for general auction-related errors.
 
-> - Docker
-> - Makefile
-> - Docker-compose
+## Testing
 
-## Usage (optional)
+### Unit Tests
+Unit tests are designed to verify the functionality of individual components in isolation. The unit tests for the BCA Car Auction Management System cover the following areas:
+- **AuctionServiceTests**
+- **AuctionTests**
+- **AuctionValidatorTests**
+- **VehicleValidatorTests**
 
-This section will explain how others can use your project.
 
-## Changelog
+## Main Services
 
-The relevant changes in a project should be added in a separated file called `CHANGELOG.md`. In the Readme a link to the changelog file should be present.
+### Adding Vehicles
+To add a vehicle, create an instance of the specific vehicle type (e.g., Sedan, SUV) and use the `AddVehicle` method of `AuctionService`.
 
-## Support
+### Starting an Auction
+To start an auction, use the `StartAuction` method of `AuctionService` with the vehicle's ID.
 
-Any additional link (could be external links, JIRA, Confluence, Miro, etc.) that will be helpful to understand the project.
+### Placing Bids
+To place a bid, use the `PlaceBid` method of `AuctionService` with the vehicle's ID, bid amount, and bidder name.
 
-### Contacts
+### Closing an Auction
+To close an auction, use the `CloseAuction` method of `AuctionService` with the vehicle's ID.
 
-In case of any questions, report bugs/problems, or suggest any modification/new features, [open an issue to the maintainers](link_directly_to_new_issue).
+### Assumptions
+Unique Vehicle Identifiers: Each vehicle has a unique identifier, which is used to manage vehicles in the inventory and auctions.
+
+Single Active Auction per Vehicle: At any given time, only one auction can be active for a specific vehicle. This simplifies the management of auctions and bids.
+
+Positive Bid Amounts: Bids must be positive and higher than the current highest bid to be considered valid.
+
+Basic Error Scenarios: The system handles basic error scenarios such as duplicate vehicle IDs, non-existent vehicles, and invalid bid amounts. Additional edge cases may need to be considered in a real-world implementation.
+
+
+
+
+
